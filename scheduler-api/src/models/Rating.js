@@ -17,8 +17,10 @@ const RatingSchema = mongoose.Schema({
     comment:{
         type: String,
     }
+}, {
+    timestamps: true
 })
 
 RatingSchema.plugin(mongoosePaginate)
 
-mongoose.model('Rating', RatingSchema)
+module.exports =  mongoose.model('Rating', RatingSchema)

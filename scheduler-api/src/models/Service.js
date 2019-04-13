@@ -6,7 +6,7 @@ const ServiceSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    description:{
+    description: {
         type: String,
         required: true
     },
@@ -19,12 +19,14 @@ const ServiceSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-    createdAt: {
-        type: Date,
-        default: Date.now
+    estimatedDuration: {
+        type: Number,
+        required: true,
     }
-})
+}, {
+        timestamps: true
+    })
 
 ServiceSchema.plugin(mongoosePaginate)
 
-mongoose.model('Service', ServiceSchema)
+module.exports =  mongoose.model('Service', ServiceSchema)

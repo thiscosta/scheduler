@@ -1,35 +1,47 @@
-const mongoose = require('mongoose')
+const Services = require('../models/Service')
+const Establishments = require('../models/Establishment')
 
-const Services = mongoose.model('Service')
+class Service {
+    async index(req, res) {
+        const establishment = await Establishments.findById(req.params.id).populate('services')
 
-module.exports = {
-    async index(req, res){
-        const services = await Services.paginate({ /*filtros*/ }, { page: 1, limit: 10 } )
+        return res.json(establishment.services)
+    }
 
-        return res.json(services)
-    },
-
-    async show(req, res){
+    async show(req, res) {
         const service = await Services.findById(req.params.id)
 
         return res.json(service)
-    },
+    }
 
-    async store(req, res){
-        const service = await Services.create(req.body)
+    async store(req, res) {
+        const establishment = await Establishments.findById(req.params.id)
 
-        return res.json(service);
-    },
+        const service = await Services.create({
+            name: req.body.name,
+            description: req.body.description,
+            establishment: establishment.id,
+            price: req.body.price
+        })
 
-    async update(req, res){
+        establishment.services.push(service)
+
+        await establishment.save()
+
+        return res.json(service)
+    }
+
+    async update(req, res) {
         const service = await Services.findOneAndUpdate(req.params.id, req.body, { new: true })
 
         return res.json(service);
-    },
+    }
 
-    async destroy(req, res){
+    async destroy(req, res) {
         await Services.findOneAndDelete(req.params.id)
 
         return res.send();
-    },
+    }
 }
+
+module.exports = new Service()

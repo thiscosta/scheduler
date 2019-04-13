@@ -10,7 +10,7 @@ const EstablishmentSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    description:{
+    description: {
         type: String,
         required: true
     },
@@ -23,21 +23,19 @@ const EstablishmentSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-    services:[
+    services: [
         { type: mongoose.Schema.Types.ObjectId, ref: 'Service' }
     ],
-    schedules:[
+    schedules: [
         { type: mongoose.Schema.Types.ObjectId, ref: 'Schedule' }
     ],
-    ratings:[
+    ratings: [
         { type: mongoose.Schema.Types.ObjectId, ref: 'Rating' }
-    ],
-    createdAt: {
-        type: Date,
-        default: Date.now
-    }
+    ]
+}, {
+    timestamps: true
 })
 
 EstablishmentSchema.plugin(mongoosePaginate)
 
-mongoose.model('Establishment', EstablishmentSchema)
+module.exports = mongoose.model('Establishment', EstablishmentSchema)

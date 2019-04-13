@@ -19,19 +19,17 @@ const UserSchema = mongoose.Schema({
         required: true
     },
     email: {
-        type: String, 
+        type: String,
         required: true
     },
     password: {
         type: String,
         required: true
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now
     }
-})
+}, {
+        timestamps: true
+    })
 
 UserSchema.plugin(mongoosePaginate)
 
-mongoose.model('User', UserSchema)
+module.exports =  mongoose.model('User', UserSchema)
