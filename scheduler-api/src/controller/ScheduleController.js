@@ -54,6 +54,8 @@ class Schedule {
             establishment.schedules.push(schedule)
             await establishment.save()
 
+            await SchedulingService.sendScheduleNotification()
+
             return res.json(schedule)
         }
 
