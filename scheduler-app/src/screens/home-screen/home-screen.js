@@ -5,34 +5,20 @@ import {
   Button, FlatList, ScrollView
 } from 'react-native';
 import { ListItem, Icon } from 'react-native-elements'
-
-import axios from 'axios'
 import moment from 'moment'
 
-import { connect } from 'react-redux'
 //Reducers
 import { startLoadListEstablishments } from '../../reducers/home-reducer'
+import { connect } from 'react-redux'
 
 class HomeScreen extends React.Component {
 
   constructor(props) {
     super(props)
-
-    this.searchSchedules = this.searchSchedules.bind(this)
-
-    this.state = {
-      scheduleList: []
-    }
   }
 
   componentDidMount() {
     this.props.startLoadListEstablishments()
-  }
-
-  async searchSchedules() {
-    const response = await axios.get('http://192.168.0.99:3030/establishments/5cb4677456a51101743373e5/schedules');
-    console.log('response', response)
-    await this.setState({ scheduleList: (response.data.reverse()) })
   }
 
   render() {
@@ -51,10 +37,12 @@ class HomeScreen extends React.Component {
             keyExtractor={(item) => item._id}
             renderItem={({ item }) =>
               <ListItem
-                title={`Agenda: Usuário`}
+                title={item.name}
+                titleStyle={{ color: '#011019' }}
                 subtitle={
-                  <View>
-                    <Text>{moment(item.date).format('DD/MM/YYYY - HH:mm')}</Text>
+                  <View style={styles.itemlist}>
+                    <Text>{item.description}</Text>
+                    <Text>{item.address}</Text>
                   </View>
                 }
                 leftIcon={<Icon
@@ -70,9 +58,6 @@ class HomeScreen extends React.Component {
     )
   }
 
-  static navigationOptions = {
-    title: 'Home',
-  };
 }
 
 const styles = StyleSheet.create({
@@ -87,9 +72,14 @@ const styles = StyleSheet.create({
   },
   instructions: {
     textAlign: 'center',
-    color: '#333333',
+    color: '#011019',
     marginBottom: 5,
   },
+  itemlist: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center'
+  }
 });
 
 const mapStateToProps = store => ({
