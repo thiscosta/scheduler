@@ -16,6 +16,12 @@
     "react-native-onesignal": "^3.2.12",
     "react-native-vector-icons": "^6.4.2",
     "react-navigation": "^3.8.1",
+    "react-redux": "^7.0.2",
+    "redux": "^4.0.1",
+    "redux-actions": "^2.6.5",
+    "redux-define": "^1.1.1",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-saga": "^1.0.2",
     "socket.io-client": "^2.2.0"
   },
   "devDependencies": {

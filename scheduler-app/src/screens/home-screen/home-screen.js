@@ -1,16 +1,19 @@
 
-import React, { Component } from 'react';
+import React from 'react';
 import {
-  Platform, StyleSheet, Text, View, ToastAndroid,
+  StyleSheet, Text, View,
   Button, FlatList, ScrollView
 } from 'react-native';
 import { ListItem, Icon } from 'react-native-elements'
-import SocketIOClient from 'socket.io-client'
-import OneSignal from 'react-native-onesignal'
+
 import axios from 'axios'
 import moment from 'moment'
 
-export default class HomeScreen extends React.Component {
+import { connect } from 'react-redux'
+//Reducers
+import { startLoadListEstablishments } from '../../reducers/home-reducer'
+
+class HomeScreen extends React.Component {
 
   constructor(props) {
     super(props)
@@ -22,8 +25,8 @@ export default class HomeScreen extends React.Component {
     }
   }
 
-  componentDidMount(){
-    this.searchSchedules()
+  componentDidMount() {
+    this.props.startLoadListEstablishments()
   }
 
   async searchSchedules() {
@@ -44,7 +47,7 @@ export default class HomeScreen extends React.Component {
           flex: 1, flexDirection: 'column'
         }}>
           <FlatList
-            data={this.state.scheduleList}
+            data={this.props.establishments}
             keyExtractor={(item) => item._id}
             renderItem={({ item }) =>
               <ListItem
@@ -88,3 +91,13 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
+
+const mapStateToProps = store => ({
+  establishments: store.home.listEstablishments
+})
+
+const mapDispatchToProps = {
+  startLoadListEstablishments
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
