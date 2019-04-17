@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-
+import api from '../config/api'
 
 class HomeService {
 
@@ -11,7 +11,7 @@ class HomeService {
             data: null
         }
 
-        const establishments = await axios.get('http://10.133.238.102:3030/establishments')
+        const establishments = await axios.get(`${api}establishments`)
         console.log('establishment: ', establishments)
 
         returnObject.data = establishments.data

@@ -5,6 +5,7 @@ import { ListItem, Icon, Divider } from 'react-native-elements'
 
 //Theme
 import theme from '../config/theme'
+import { TouchableHighlight } from 'react-native-gesture-handler';
 
 class Drawer extends Component {
 
@@ -26,14 +27,15 @@ class Drawer extends Component {
     renderDrawerItems(e) {
         e = e.item
         return (
-            <ListItem
-                leftIcon={e.icon}
-                title={e.label}
-                titleStyle={{ color: theme.lightFontColor, fontWeight: 'bold', fontSize: 18.5 }}
-                chevronColor={theme.lightFontColor}
-                containerStyle={{ backgroundColor: 'transparent', flex: 1 }}
-                onPress={() => this.props.navigation.navigate(e.routeName)}
-            />
+            <TouchableHighlight onPress={() => { this.props.navigation.navigate(e.routeName) }} underlayColor={theme.lightPrimaryColor}>
+                <ListItem
+                    leftIcon={e.icon}
+                    title={e.label}
+                    titleStyle={{ color: theme.lightFontColor, fontWeight: 'bold', fontSize: 18.5 }}
+                    chevronColor={theme.lightFontColor}
+                    containerStyle={{ backgroundColor: theme.primaryColor, flex: 1 }}
+                />
+            </TouchableHighlight>
         )
     }
 
