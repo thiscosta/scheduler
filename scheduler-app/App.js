@@ -7,6 +7,7 @@ import OneSignal from 'react-native-onesignal'
 
 //Screens
 import drawerNavigator from './src/config/drawer'
+import Details from './src/screens/home-screen/details-screen'
 
 //Navigation
 import { createStackNavigator, createDrawerNavigator, createAppContainer } from 'react-navigation'
@@ -15,7 +16,22 @@ import { createStackNavigator, createDrawerNavigator, createAppContainer } from 
 import { Provider } from 'react-redux'
 import store from './src/config/store'
 
-const Navigation = createAppContainer(drawerNavigator);
+const stackNavigator = createStackNavigator({
+  Drawer: {
+    screen: drawerNavigator,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  Details: {
+    screen: Details,
+  },
+
+},{
+  headerMode: 'none'
+});
+
+const Navigation = createAppContainer(stackNavigator);
 
 export default class App extends React.Component {
 

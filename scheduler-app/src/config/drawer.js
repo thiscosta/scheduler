@@ -15,7 +15,6 @@ import DrawerComponent from '../components/drawer-component'
 export default createDrawerNavigator(
     {
         Home: { screen: Home },
-        Details: { screen: Details },
         Schedules: { screen: Schedule },
         History: { screen: History },
         Payments: { screen: Payments },

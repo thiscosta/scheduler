@@ -8,7 +8,7 @@ import { ListItem, Icon } from 'react-native-elements'
 import moment from 'moment'
 
 //Reducers
-import { startLoadListEstablishments } from '../../reducers/home-reducer'
+import { startLoadListEstablishments, successSelectEstablishment } from '../../reducers/home-reducer'
 import { connect } from 'react-redux'
 
 class HomeScreen extends React.Component {
@@ -24,11 +24,6 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <ScrollView style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Button onPress={() => {
-          this.props.navigation.navigate('DetailsScreen')
-        }} title="Entrar" />
         <View style={{
           flex: 1, flexDirection: 'column'
         }}>
@@ -45,10 +40,14 @@ class HomeScreen extends React.Component {
                     <Text>{item.address}</Text>
                   </View>
                 }
+                onPress={() => {
+                  this.props.successSelectEstablishment({ selectedEstablishment: item })
+                  this.props.navigation.navigate('Details')
+                }}
                 leftIcon={<Icon
                   reverse
-                  name='ios-american-football'
-                  type='ionicon'
+                  name='scissors'
+                  type='font-awesome'
                   color='#517fa4'
                 />} />
             }
@@ -57,6 +56,10 @@ class HomeScreen extends React.Component {
       </ScrollView>
     )
   }
+
+  static navigationOptions = {
+    mode: 'none',
+};
 
 }
 
@@ -87,7 +90,8 @@ const mapStateToProps = store => ({
 })
 
 const mapDispatchToProps = {
-  startLoadListEstablishments
+  startLoadListEstablishments,
+  successSelectEstablishment
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

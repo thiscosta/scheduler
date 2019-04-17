@@ -11,7 +11,7 @@ class HomeService {
             data: null
         }
 
-        const establishments = await axios.get('http://192.168.0.99:3030/establishments')
+        const establishments = await axios.get('http://10.133.238.102:3030/establishments')
         console.log('establishment: ', establishments)
 
         returnObject.data = establishments.data

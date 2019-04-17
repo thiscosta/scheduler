@@ -21,7 +21,8 @@ class Service {
             name: req.body.name,
             description: req.body.description,
             establishment: establishment.id,
-            price: req.body.price
+            price: req.body.price,
+            estimatedDuration: req.body.estimatedDuration
         })
 
         establishment.services.push(service)
