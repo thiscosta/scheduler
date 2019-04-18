@@ -8,17 +8,10 @@ const app = express()
 app.use(cors())
 
 const server = require('http').Server(app)
-const io = require('socket.io')(server)
-
-io.on('connection', socket => {
-    socket.on('connectRoom', box => {
-        socket.join(box)
-    })
-})
+const io = require('./src/controller/ChatController').mountChat(server)
 
 app.use((req, res, next) => {
     req.io = io
-
     return next()
 })
 
