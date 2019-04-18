@@ -12,19 +12,36 @@ const UserSchema = mongoose.Schema({
     },
     cpf: {
         type: String,
-        required: true
+        required: true,
+        unique: true,
+        dropDups: true
     },
     phone: {
         type: String,
-        required: true
+        required: true,
+        unique: true,
+        dropDups: true
     },
     email: {
+        type: String,
+        required: true,
+        unique: true,
+        dropDups: true
+    },
+    role: {
         type: String,
         required: true
     },
     password: {
         type: String,
         required: true
+    },
+    verified: {
+        type: Boolean,
+        default: false,
+    },
+    verificationToken:{
+        type: String
     }
 }, {
         timestamps: true

@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const requireDir = require('require-dir')
 const cors = require('cors')
+require('dotenv-safe').load();
 
 const app = express()
 app.use(cors())
