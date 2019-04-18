@@ -10,9 +10,14 @@ class User {
     }
 
     async show(req, res) {
-        const user = await Users.findById(req.params.id)
+        if (req.userRole === 'Admin' || req.userId === req.params.id) {
+            const user = await Users.findById(req.params.id)
 
-        return res.json(user)
+            return res.json(user)
+        }
+
+        return res.status(403).json({ success: false, message: 'You haven\'t permission to view this user' })
+
     }
 
     async store(req, res) {
@@ -26,7 +31,7 @@ class User {
         const user = await Users.create(req.body)
 
         user.verificationToken = crypto.createHash('sha256').update(user._id.toString()).digest('hex')
-        
+
         await user.save()
 
         VerificationController.sendVerificationEmail(user.email, user.verificationToken);
